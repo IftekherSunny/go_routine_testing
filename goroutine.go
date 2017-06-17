@@ -1,4 +1,4 @@
-package go_routine_testing
+package example
 
 import "sync"
 
@@ -10,14 +10,16 @@ func MakeMessage(content chan string) chan string {
 	wg := new(sync.WaitGroup)
 	wg.Add(1)
 
-	go func() {
-		message <- "Your message is " + <-content
-		wg.Done()
-	}()
+	go generate(message, content, wg)
 
 	go func() {
 		wg.Wait()
 	}()
 
 	return message
+}
+
+func generate(message chan string, content chan string, wg *sync.WaitGroup) {
+	message <- "Your message is " + <-content
+	wg.Done()
 }

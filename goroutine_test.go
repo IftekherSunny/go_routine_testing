@@ -1,4 +1,4 @@
-package go_routine_testing
+package example
 
 import (
 	"sync"
